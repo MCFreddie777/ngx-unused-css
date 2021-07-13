@@ -1,5 +1,5 @@
 import { handler } from './whitelist/handler'
-import { Ignore } from '../config'
+import { Ignore } from '../types/config.type'
 
 describe('Whitelist', () => {
   const input = ['.test.sub-no-used', '.class-no-used']

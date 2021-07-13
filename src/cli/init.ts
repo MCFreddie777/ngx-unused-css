@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import fs from 'fs';
 import prompts from 'prompts';
-import { Config } from './config';
+import { Config } from '../types/config.type';
 
 const questions = [
   {

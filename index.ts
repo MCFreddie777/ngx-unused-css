@@ -5,8 +5,8 @@
 Find unused css inside Angular components
 */
 // import Main from "./src/main";
-import { Config } from './src/config';
-import init from './src/init';
+import { Config } from './src/types/config.type';
+import init from './src/cli/init';
 
 const path = require('path');
 const fs = require('fs');
@@ -37,6 +37,7 @@ const cli = meow(
 let config: Config;
 
 // Use dynamic import so config is initialized on every import
+// TODO: Refactor this so the files won't need to be in a separate folder with "main" name.
 async function start () {
   const mainPromise = import('./src/main');
   mainPromise.then(res => {

@@ -1,9 +1,9 @@
 import chalk from 'chalk'
 import { table } from 'table'
-import { conf } from './../index'
-import UnusedClasses from './main/getUnusedClasses'
+import { conf } from '../../index'
+import UnusedClasses from '../main/getUnusedClasses'
 
-class Main {
+class Index {
   constructor () {
     const unusedClasses = new UnusedClasses()
 
@@ -50,4 +50,4 @@ class Main {
   }
 }
 
-export default Main
+export default Index

@@ -1,4 +1,4 @@
-describe('Main class', () => {
+describe('CLI Index class', () => {
   it('should print results correctly', () => {
     expect(2).toBe(2)
   })
