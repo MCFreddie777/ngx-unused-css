@@ -26,16 +26,17 @@ function unusedClassMapper(cssPath, htmlContent, htmlPath) {
                     return [4 /*yield*/, findUnusedCss_1.default(htmlContent, cssPath)];
                 case 2:
                     classes = _a.sent();
-                    return [2 /*return*/, [classes, htmlPath]];
+                    if (cssPath && classes.length > 0) {
+                        return [2 /*return*/, { htmlPath: htmlPath, cssPath: cssPath, classes: classes }];
+                    }
+                    return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
-                    console.log(error_1);
-                    return [3 /*break*/, 4];
+                    return [2 /*return*/, { htmlPath: htmlPath, cssPath: cssPath, classes: [] }];
                 case 4: return [3 /*break*/, 6];
                 case 5:
                     error_2 = _a.sent();
-                    console.log('Styling file for component ' + htmlPath + ' not found, skipping...');
-                    return [3 /*break*/, 6];
+                    return [2 /*return*/, { htmlPath: htmlPath, cssPath: '', classes: [] }];
                 case 6: return [2 /*return*/];
             }
         });
