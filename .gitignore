@@ -1,3 +1,13 @@
+# Packages
 node_modules
+
+# Platform specific
 .DS_Store
-dist
+Thumbs.db
+
+# IDE's
+.vscode
+.idea
+
+# Built files
+src/dist
