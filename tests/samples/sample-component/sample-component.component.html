@@ -1,0 +1,22 @@
+<table
+  #table
+  class='class1 class2 centered'
+>
+  <tbody>
+  <tr>
+    <th></th>
+    <th #tableBaseCol1></th>
+    <span
+      [ngClass]="{ 'classInNgClass': true, 'classInNgClass2' : 1 === 1, 'unusedClassInNgClass3' : false }"
+    ></span>
+    <a
+      class='anchor'
+    >
+      <e-another-sample-component
+        class='class3 class4'
+      ></e-another-sample-component>
+    </a>
+    </th>
+  </tr>
+  </tbody>
+</table>

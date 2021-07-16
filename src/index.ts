@@ -1,53 +1,75 @@
-import chalk from 'chalk';
-import { table } from 'table';
-import { conf } from './cli';
-import UnusedClasses from './helpers/getUnusedClasses';
+import fs from 'fs';
+import { Config } from './types/config.type';
+import findUnusedCss from './functions/findUnusedCss.function';
+import findHtmlFunction from './functions/findHtml.function';
+import { Result, ResultType } from './types/result.type';
 
-class Main {
-  constructor() {
-    const unusedClasses = new UnusedClasses();
+let allHtmlContent = '';
 
-    unusedClasses.getUnusedClasses(conf.path).then((res) => {
-      if (conf.globalStyles) {
-        unusedClasses.getGlobalUnusedClasses(conf.globalStyles).then((r) => {
-          if (r.length > 0) {
-            // @ts-ignore
-            res.push([r, '***** GLOBAL UNUSED CSS *****']);
-          }
-          if (res.length > 0) {
-            this.log(res);
-          }
-        });
-      } else {
-        if (res.length > 0) {
-          this.log(res);
+export default async function getUnusedStyles(
+  config: Config
+): Promise<Result[]> {
+  // find path to html files in project
+  const templatePaths = findHtmlFunction(config.path);
+
+  // extract all css classes from templates
+  let result: Result[] = await Promise.all(
+    templatePaths.map(async (templatePath) => {
+      const templateFileContents = fs.readFileSync(templatePath, 'utf8');
+      allHtmlContent += templateFileContents;
+
+      // Expect same path as the template except different extension.
+      // If styleExt not provided in the config default to .scss
+      const stylesPath = templatePath.replace(
+        '.html',
+        `.${config?.styleExt ?? 'scss'}`
+      );
+
+      let classes: string[] | undefined;
+
+      // Try to read styling file path in order to determine if file exist
+      try {
+        fs.readFileSync(stylesPath);
+      } catch (error) {
+        if (config.verbose) {
+          console.log(error);
         }
       }
-    });
-  }
 
-  private log(classes: [[string[], string]]) {
-    let result = '';
+      // Try to compile styles and extract unused styles
+      try {
+        classes = await findUnusedCss(templatePath, stylesPath, config);
+      } catch (error) {
+        if (config.verbose) {
+          console.log(error);
+        }
+      }
 
-    classes.forEach((e: [string[], string]) => {
-      const htmlPath = e[1];
-      const cssPath = e[1].replace('.html', '.scss');
+      return {
+        type: ResultType.component,
+        templatePath,
+        stylesPath,
+        classes: classes ?? []
+      };
+    })
+  );
 
-      result += chalk.red(htmlPath) + '\n';
-      result += chalk.red.bold(cssPath) + '\n';
-
-      const cssClasses = e[0].join('\n');
-
-      result += table([[chalk.green(cssClasses)]]);
-    });
-
-    console.log(
-      chalk.red.bold('Unused CSS classes were found for the following files:\n')
+  // Check the global styles
+  if (config.globalStyles) {
+    const unusedGlobalStyles = await findUnusedCss(
+      allHtmlContent,
+      config.globalStyles,
+      config
     );
 
-    console.log(result);
-    process.exit(1);
+    if (unusedGlobalStyles?.length) {
+      result.push({ type: ResultType.global, classes: unusedGlobalStyles });
+    }
   }
-}
 
-export default Main;
+  if (config.removeEmpty) {
+    result = result.filter((entry) => !!entry.classes.length);
+  }
+
+  return result;
+}

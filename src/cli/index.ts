@@ -4,9 +4,12 @@
 /*
 Find unused css inside Angular components
 */
-// import Main from "./src/main";
 import { Config } from '../types/config.type';
 import init from './init';
+import getUnusedStyles from '../index';
+import chalk from 'chalk';
+import { table } from 'table';
+import { ResultType } from '../types/result.type';
 
 const path = require('path');
 const fs = require('fs');
@@ -34,34 +37,43 @@ const cli = meow(
   }
 );
 
-let config: Config;
+let config: Config | undefined;
 
-// Use dynamic import so config is initialized on every import
-async function start () {
-  const mainPromise = import('../main');
-  mainPromise.then(res => {
-    new res.default();
-  });
-}
-
+// initialize configuration file
 if (cli.flags.init) {
-  init();
-} else {
-  if (cli.flags.config) {
-    config = require(path.join(__dirname, cli.flags.config));
-  } else if (fs.existsSync(path.resolve(defaultConfigPath))) {
-    config = require(path.resolve(defaultConfigPath));
-  }
-
-  if (!config) {
-    throw new Error('Config not found, did you forgot to run ngx-unused-css --init?');
-  }
-
-  start();
+  init().then(() => process.exit(0));
 }
 
-export const conf = config;
-
-export function getConfig () {
-  return config;
+// load config file
+if (cli.flags.config) {
+  config = require(path.join(__dirname, cli.flags.config));
+} else if (fs.existsSync(path.resolve(defaultConfigPath))) {
+  config = require(path.resolve(defaultConfigPath));
 }
+
+if (!config) {
+  throw new Error(
+    'Config not found, did you forgot to run ngx-unused-css --init?'
+  );
+}
+
+getUnusedStyles(config).then((classes) => {
+  console.log(
+    chalk.red.bold('Unused CSS classes were found for the following files:\n')
+  );
+
+  // print table of files & classes
+  classes.forEach((res) => {
+    if (res.type === ResultType.component) {
+      console.log(chalk.red(res.templatePath));
+      console.log(chalk.red.bold(res.stylesPath));
+    } else {
+      console.log(chalk.red('**** GLOBAL STYLES ****'));
+    }
+
+    const cssClasses = res.classes.join('\n');
+    console.log(table([[chalk.green(cssClasses)]]));
+  });
+
+  process.exit(1);
+});
