@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { conf } from '../..';
-import unusedClassMapper from '../helpers/unusedClassMapper';
-import findHtml from './../helpers/findHtml';
+import unusedClassMapper from './unusedClassMapper';
+import findHtml from './findHtml';
 import findUnusedCss from './findUnusedCss';
 export default class UnusedClasses {
   private allHtmlContent = '';

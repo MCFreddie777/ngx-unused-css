@@ -1,5 +1,5 @@
 import fs from 'fs';
-import findUnusedCss from '../main/findUnusedCss';
+import findUnusedCss from './findUnusedCss';
 
 /**
  * Returns array of classes/attributes not used in html

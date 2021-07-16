@@ -1,4 +1,4 @@
-import { Ignore } from '../../config'
+import { Ignore } from '../../types/config.type'
 
 export function handler (
   classes: string[],

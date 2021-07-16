@@ -1,5 +1,5 @@
 import mock from 'mock-fs'
-import findHtml from './../helpers/findHtml'
+import findHtml from './findHtml'
 import findUnusedCss from './findUnusedCss'
 import UnusedClasses from './getUnusedClasses'
 

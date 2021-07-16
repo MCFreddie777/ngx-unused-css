@@ -1,7 +1,7 @@
 import PurgeCSS from 'purgecss'
 import compileSCSS from './compileSCSS'
-import parseNgClass from '../helpers/parseNgClass'
-import whitelist from '../helpers/whitelist'
+import parseNgClass from './parseNgClass'
+import whitelist from './whitelist'
 
 /**
  * Find unused css classes per file and returns array of them

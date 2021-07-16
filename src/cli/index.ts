@@ -5,8 +5,8 @@
 Find unused css inside Angular components
 */
 // import Main from "./src/main";
-import { Config } from './src/config';
-import init from './src/init';
+import { Config } from '../types/config.type';
+import init from './init';
 
 const path = require('path');
 const fs = require('fs');
@@ -38,7 +38,7 @@ let config: Config;
 
 // Use dynamic import so config is initialized on every import
 async function start () {
-  const mainPromise = import('./src/main');
+  const mainPromise = import('../main');
   mainPromise.then(res => {
     new res.default();
   });

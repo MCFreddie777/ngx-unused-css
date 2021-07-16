@@ -1,6 +1,6 @@
 import compileSCSS from './compileSCSS'
-import parseNgClass from './../helpers/parseNgClass'
-import whitelist from './../helpers/whitelist'
+import parseNgClass from './parseNgClass'
+import whitelist from './whitelist'
 import findUnusedCss from './findUnusedCss'
 
 jest.mock('./compileSCSS', () => jest.fn())

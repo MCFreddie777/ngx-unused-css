@@ -1,5 +1,5 @@
-import { SELECTORS_TO_IGNORE } from '../constants'
-import { Ignore } from '../config'
+import { SELECTORS_TO_IGNORE } from '../constants/selectors-to-ignore.constant'
+import { Ignore } from '../types/config.type'
 import { conf } from '../..'
 import { handler } from './whitelist/handler'
 import path from 'path'
