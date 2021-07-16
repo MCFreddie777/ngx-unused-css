@@ -2,10 +2,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "strict": true,
-    "outDir": "./src/dist",
+    "outDir": "./dist",
     "sourceMap": true,
     "esModuleInterop": true,
-    "declaration": false,
+    "declaration": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,

@@ -11,7 +11,7 @@
     "build": "tsc",
     "lint": "eslint --ext .ts src/**",
     "lint:fix": "eslint --fix --ext .ts src/**",
-    "test": "jest src/**",
+    "test": "jest tests/**",
     "e2e": "jest e2e/test.ts",
     "e2e:manual": "cd e2e && npm run unusedCSS",
     "e2e:init": "node dist/index --init",
@@ -25,6 +25,12 @@
     "find"
   ],
   "author": "Ivan Blazevic",
+  "contributors": [
+    {
+      "name": "František Gič",
+      "url": "https://github.com/mcfreddie777"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "chalk": "4.0.0",
@@ -37,7 +43,7 @@
     "tslib": "^1.14.1"
   },
   "bin": {
-    "ngx-unused-css": "./dist/index.js"
+    "ngx-unused-css": "./dist/cli/index.js"
   },
   "bugs": "https://github.com/ivanblazevic/ngx-unused-css/issues",
   "homepage": "https://github.com/ivanblazevic/ngx-unused-css",
@@ -55,7 +61,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "@types/jsdom": "^16.2.9",
-    "@types/mock-fs": "^4.13.0",
+    "@types/mock-fs": "^4.13.1",
     "@types/node": "^13.13.48",
     "@types/prompts": "^2.0.14",
     "@types/sass": "^1.16.1",
