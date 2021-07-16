@@ -1,7 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist",
+    "strict": true,
+    "outDir": "./src/dist",
     "sourceMap": true,
     "esModuleInterop": true,
     "declaration": false,
