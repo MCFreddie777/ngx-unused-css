@@ -1,4 +1,4 @@
-import fs from 'fs';
+import * as fs from 'fs';
 import findUnusedCss from '../../src/functions/findUnusedCss.function';
 
 describe('findUnusedCss.function.ts', () => {
@@ -10,7 +10,7 @@ describe('findUnusedCss.function.ts', () => {
     );
     const stylesPath = `${basePath}/sample-component.component.scss`;
 
-    const classes = await findUnusedCss(templatePath, stylesPath, {
+    const classes = await findUnusedCss(templatePath, stylesPath, 'scss', {
       path: basePath,
       ignore: ['sample-component'] // ignore the component itself
     });

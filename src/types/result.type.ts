@@ -1,8 +1,7 @@
 export enum ResultType {
+  component = 'component',
   // eslint-disable-next-line no-unused-vars
-  component,
-  // eslint-disable-next-line no-unused-vars
-  global
+  global = 'global'
 }
 
 interface GlobalStylesResult {

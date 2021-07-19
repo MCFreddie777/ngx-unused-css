@@ -1,24 +1,16 @@
 import sass, { Importer, Options } from 'sass';
-import path from 'path';
-import { Config } from '../../types/config.type';
-
-/**
- * Resolve tilde relative imports from node_modules
- * @param {*} url
- */
-function importer(url: string) {
-  if (url[0] === '~') {
-    url = path.resolve('node_modules', url.substr(1));
-  }
-  return { file: url };
-}
+import { SCSSCompilerConfig } from '../../types/config.type';
+import importer from './importer.function';
 
 /**
  * Compile SCSS
  * @param {string} cssPath
  * @param config
  */
-export default function compileScss(cssPath: string, config: Config) {
+export default function compileScss(
+  cssPath: string,
+  config: SCSSCompilerConfig
+) {
   const scssOptions: Options = {
     file: cssPath,
     importer: [importer]

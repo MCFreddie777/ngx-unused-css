@@ -1,5 +1,16 @@
 import { Importer } from 'sass';
 
+export type SupportedStyleExt = 'scss' | 'sass' | 'css' | 'less';
+
+export interface SCSSCompilerConfig {
+  importer?: Importer;
+  includePaths?: string;
+}
+
+export type LESSCompilerConfig = Less.Options;
+
+export type StyleConfig = SCSSCompilerConfig | LESSCompilerConfig;
+
 export interface Ignore {
   file: string;
   all?: boolean;
@@ -12,10 +23,9 @@ export function isIgnore(arg: any): arg is Ignore {
 
 export interface Config {
   path: string;
-  styleExt?: 'scss' | 'sass' | 'css';
+  styleExt?: SupportedStyleExt[];
+  styleConfig?: StyleConfig;
   ignore?: (string | Ignore)[];
-  importer?: Importer;
-  includePaths?: string;
   globalStyles?: string;
   verbose?: boolean;
   removeEmpty?: boolean;

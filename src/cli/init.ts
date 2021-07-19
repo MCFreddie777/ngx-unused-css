@@ -20,13 +20,15 @@ const questions: PromptObject[] = [
     message: 'Does your project use Angular Material library?'
   },
   {
-    type: 'select',
+    type: 'multiselect',
     name: 'styleExt',
-    message: 'Which style extension is your project using?',
+    message:
+      'Which style extension is your project using? (you can choose more than one)',
     choices: [
-      { title: 'SCSS', value: '.scss' },
-      { title: 'SASS', value: '.sass' },
-      { title: 'CSS', value: '.css' }
+      { title: 'SCSS', value: 'scss' },
+      { title: 'LESS', value: 'less' },
+      { title: 'SASS', value: 'sass' },
+      { title: 'CSS', value: 'css' }
     ],
     initial: 0
   }

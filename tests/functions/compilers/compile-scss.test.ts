@@ -34,9 +34,7 @@ span.class1 {
 
     const result = await compileScss(
       'tests/samples/sample-component/sample-component.component.scss',
-      {
-        path: 'tests/samples'
-      }
+      {}
     );
 
     // compare values without whitespace
